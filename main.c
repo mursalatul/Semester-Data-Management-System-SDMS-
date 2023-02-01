@@ -1,27 +1,43 @@
 #include <stdio.h>
 #include <string.h>
-/*structures*/
-struct user
-{
-    char username[20]; /* store username*/
-    char password[20]; /* store password*/
-    char stu_teac;     /* store if user is student or teacher*/
-};
+#include <ctype.h>
+/* project headers */
+#include "checker.h" // for user_present(struct user user) function
 
 /*function pre-declaration*/
+
 struct user login();
 int password_format_checker(char *p);
 int username_format_checker(char *p);
+int login_confirmation(struct user user);
 
 /* main function*/
 int main()
 {
+    /* login section */
     struct user user = login();
-    printf("%s, %s, %c", user.username, user.password, user.stu_teac);
+    while (1)
+    {
+        /* if user confirm to login then procced. else ask for login data again. */
+        if (login_confirmation(user) == 1)
+        {
+            /* check if login data correct or not */
+            int user_status = user_present(user);
+            if (user_status == 0)
+                printf("\033[31mWrong username!\n\033[30m\n\n");
+            else if (user_status == 10)
+                printf("\033[31mWrong password!\n\033[30m\n\n");
+            else
+                /* user_status = 1, data found */
+                break;
+        }
+        printf("You are redirecting to login section again.....\n");
+        user = login();
+    }
     return 0;
 }
 
-/*handle login section*/
+/*handle login section. return struct user type user data(username, password, Student/teacher)*/
 struct user login()
 {
     struct user user;
@@ -43,7 +59,7 @@ struct user login()
         if (password_format_checker(user.password) == 1)
             break;
         else
-            printf("\033[31mPassword is not in valid format.\nPlease Include 1 number, 1 uppercase and lowercase letter and 1 special character.\n\033[30m\n\n");
+            printf("\033[31mPassword is not in valid format.\nPassword size should be in 4 - 10.\nAnd contains 1 number, 1 uppercase and lowercase letter and 1 special character.\n\033[30m\n\n");
     }
     /*this while lop will continue untill user enter S or T*/
     while (1)
@@ -51,8 +67,10 @@ struct user login()
         printf("Login as student/Teacher\nPress 'S' for student and 'T' for teacher\n          : ");
         /*bug: if we insert multiple char in same line it take each of the letter as indivitual input causeing loop*/
         scanf(" %c", &user.stu_teac);
+        /* lowercasing user.stu_teac for simplicity */
+        user.stu_teac = tolower(user.stu_teac);
         /*checking if the input is s or T*/
-        if (user.stu_teac == 's' || user.stu_teac == 'S' || user.stu_teac == 't' || user.stu_teac == 'T')
+        if (user.stu_teac == 's' || user.stu_teac == 't')
             break;
         else
             printf("\033[31mValid input is 'S' or 'T', Try again\033[30m\n\n");
@@ -102,14 +120,24 @@ int username_format_checker(char *u)
     int username_len = strlen(u);
     for (int i = 0; i < username_len; i++)
     {
-        if ((u[i] >= 'A' && u[i] <= 'Z') || ((u[i] >= 33 && u[i] <= 47) || (u[i] >= 58 && u[i] <= 64) || (u[i] >= 91 && u[i] <= 96) || (u[i] >= 123 && u[i] <= 126)))
+        /* 95 = decimal value of under score, other special characters are not allowed*/
+        if ((u[i] >= 'A' && u[i] <= 'Z') || ((u[i] >= 33 && u[i] <= 47) || (u[i] >= 58 && u[i] <= 64) || (u[i] >= 91 && u[i] <= 96 && u[i] != 95) || (u[i] >= 123 && u[i] <= 126)))
         {
             valid = 0;
             break;
         }
-        /* 95 = decimal value of under score*/
-        if (u[i] == 95)
-            valid = 1;
     }
     return valid;
+}
+
+/* show final data and confirm if it is final data or not */
+int login_confirmation(struct user user)
+{
+    char confirm[20];
+    printf("\nUsername              : %s\nStudent/Teacher status: %c\nProcced? (YES/NO): ", user.username, user.stu_teac);
+    scanf("%s", &confirm);
+    if (!strcmp(confirm, "YES") || !strcmp(confirm, "yes") || !strcmp(confirm, "1") || !strcmp(confirm, "Yes") || !strcmp(confirm, "y") || !strcmp(confirm, "Y"))
+        return 1;
+    else
+        return 0;
 }
