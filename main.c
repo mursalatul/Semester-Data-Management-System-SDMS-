@@ -40,15 +40,20 @@ int main()
         printf("********** Welcome To Your Portal **********\n");
         /* print basic information */
         struct student student_basic_info = basic_info(user.username);
-        if (student_basic_info.fullname == NULL)
-            printf("Data Retrived Failed\n");
-        else
-        {
-            printf("Name: %sRoll: %sReg: %sBatch: %sSemester: %sDepartment: %s\n", student_basic_info.fullname, student_basic_info.roll, student_basic_info.registration, student_basic_info.batch, student_basic_info.semester, student_basic_info.department);
-        }
+        // if (student_basic_info.fullname == NULL)
+        //     printf("Data Retrived Failed\n");
+        // else
+        // {
+        printf("Name: %sRoll: %sReg: %sBatch: %sSemester: %sDepartment: %s\n", student_basic_info.fullname, student_basic_info.roll, student_basic_info.registration, student_basic_info.batch, student_basic_info.semester, student_basic_info.department);
+        // }
         /* printing educational datas */
         printf("(Course Code)--(Total Classes)--(Attendence)--(Assignment)--(Assignment Completed)--(Presentation)--(Presentation Completed)--(Class Tests)--(Class Test Attended)\n");
-        
+        struct course_data *all_course_data_arr = course_data_retriver(user.username);
+        int all_course_data_arr_size = sizeof(all_course_data_arr) / sizeof(all_course_data_arr[0]);
+        for (int i = 0; i < 1; i++)
+        {
+            printf("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n",all_course_data_arr[i].course_name, all_course_data_arr[i].total_class, all_course_data_arr[i].attendence, all_course_data_arr[i].total_assignment, all_course_data_arr[i].assignment_completed, all_course_data_arr[i].total_presentation, all_course_data_arr[i].presentation_completed, all_course_data_arr[i].total_classtest, all_course_data_arr[i].classtest_completed);
+        }
     }
     else
     {
