@@ -40,8 +40,14 @@ int main()
         printf("********** Welcome To Your Portal **********\n");
         /* print basic information */
         struct student student_basic_info = basic_info(user.username);
+        if (student_basic_info.fullname == NULL)
+            printf("Data Retrived Failed\n");
+        else
+        {
+            printf("Name: %sRoll: %sReg: %sBatch: %sSemester: %sDepartment: %s\n", student_basic_info.fullname, student_basic_info.roll, student_basic_info.registration, student_basic_info.batch, student_basic_info.semester, student_basic_info.department);
+        }
         /* printing educational datas */
-        printf("Course Code--Total Classes--Attendence--Assignment--Assignment Completed--Presentation--Presentation Completed--Class Tests--Class Test Attended\n");
+        printf("(Course Code)--(Total Classes)--(Attendence)--(Assignment)--(Assignment Completed)--(Presentation)--(Presentation Completed)--(Class Tests)--(Class Test Attended)\n");
         
     }
     else

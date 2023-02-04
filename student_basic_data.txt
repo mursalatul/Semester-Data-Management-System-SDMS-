@@ -1,0 +1,39 @@
+pallob_1
+Md Mursalatul Islam Pallob
+19
+CS-D-64-12321
+D-64
+5
+CSE
+
+maliha_2
+Maliha Nusrat Tahira
+20
+CS-D-64-11380
+D-64
+5
+CSE
+
+eliasvai_24
+Elias Ur Rahman
+12
+CS-D-63-25671
+D-63
+6
+CSE
+
+swadh1n
+Sajjad Islam Swadhin
+40
+CS-D-66-25851
+D-66
+4
+CSE
+
+arpi_4
+Farnaz Arpita
+10
+CS-D-64-12867
+D-64
+5
+CSE
