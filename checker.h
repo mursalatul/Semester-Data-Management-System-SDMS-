@@ -1,6 +1,6 @@
 /* header guard */
-#ifndef STUDENT_H
-#define STUDENT_H
+#ifndef CHECKER_H
+#define CHECKER_H
 
 #include <stdio.h>
 #include <string.h>

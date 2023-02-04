@@ -2,8 +2,8 @@
 #include <string.h>
 #include <ctype.h>
 /* project headers */
-#include "checker.h" // for user_present(struct user user) function
-
+#include "checker.h" //user_present(struct user user)
+#include "student.h"
 /*function pre-declaration*/
 
 struct user login();
@@ -33,6 +33,20 @@ int main()
         }
         printf("You are redirecting to login section again.....\n");
         user = login();
+    }
+    if (user.stu_teac == 's')
+    {
+        /* student section */
+        printf("********** Welcome To Your Portal **********\n");
+        /* print basic information */
+        struct student student_basic_info = basic_info(user.username);
+        /* printing educational datas */
+        printf("Course Code--Total Classes--Attendence--Assignment--Assignment Completed--Presentation--Presentation Completed--Class Tests--Class Test Attended\n");
+        
+    }
+    else
+    {
+        /* teacher section */
     }
     return 0;
 }
