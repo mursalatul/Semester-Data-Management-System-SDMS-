@@ -44,17 +44,18 @@ int main()
         printf("Name: %sRoll: %sReg: %sBatch: %sSemester: %sDepartment: %s\n", student_basic_info.fullname, student_basic_info.roll, student_basic_info.registration, student_basic_info.batch, student_basic_info.semester, student_basic_info.department);
 
         /* printing educational datas */
-        // printf("(Course Code)--(Total Classes)--(Attendence)--(Assignment)--(Assignment Completed)--(Presentation)--(Presentation Completed)--(Class Tests)--(Class Test Attended)\n");
-        printf("CC\t TC\tAt\tAs\tAC\tPr\tPC\tCT\tCTA\n");
+        printf("----------------------------------------\n");
+        printf("CC = Course Code\t\tTC = Total Classes\t\tAt = Attendence\nAs = Assignment\t\t\tAC = Assignment Completed\tPr = Presentation\nPC = Presentation Completed\tCT = Class Tests\t\tCTA = Class Test Attended\n");
+        printf("----------------------------------------\n");
+        printf("CC\tTC\tAt\tAs\tAC\tPr\tPC\tCT\tCTA\n");
         struct course_data *all_course_data_arr = course_data_retriver(user.username);
         for (int i = 0; 1;i++)
         {
             /* print until last last value */
             if (all_course_data_arr[i].course_name[0] == 'E')
                 break;
-            printf("%s  %s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n",all_course_data_arr[i].course_name, all_course_data_arr[i].total_class, all_course_data_arr[i].attendence, all_course_data_arr[i].total_assignment, all_course_data_arr[i].assignment_completed, all_course_data_arr[i].total_presentation, all_course_data_arr[i].presentation_completed, all_course_data_arr[i].total_classtest, all_course_data_arr[i].classtest_completed);
+            printf("%s    %s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n",all_course_data_arr[i].course_name, all_course_data_arr[i].total_class, all_course_data_arr[i].attendence, all_course_data_arr[i].total_assignment, all_course_data_arr[i].assignment_completed, all_course_data_arr[i].total_presentation, all_course_data_arr[i].presentation_completed, all_course_data_arr[i].total_classtest, all_course_data_arr[i].classtest_completed);
         }
-        // printf("%d\n", all_course_data_arr_size);
     }
     else
     {
