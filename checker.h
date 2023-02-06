@@ -96,6 +96,9 @@ int custom_strcmp(char *s1, char *s2)
     return 0;
 }
 
+/* copy value of s2 into s1 */
+
+
 /* extract course name from the str and compare with str */
 int cmp_with_course_name(char *str, char *target)
 {

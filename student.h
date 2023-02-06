@@ -195,7 +195,7 @@ struct course_data transfer_course_data_into_A(char *str)
         }
         else
         {
-            course_data_A.assignment_completed[start] = x;
+            course_data_A.assignment_completed[start] = '\0';
             break;
         }
     }
