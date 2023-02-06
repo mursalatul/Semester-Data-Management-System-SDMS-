@@ -4,6 +4,7 @@
 /* project headers */
 #include "checker.h" //user_present(struct user user)
 #include "student.h"
+#include "teacher.h" /* show_available_courses_for_teacher() */
 /*function pre-declaration*/
 
 struct user login();
@@ -60,6 +61,15 @@ int main()
     else
     {
         /* teacher section */
+        /* showing all the courses */ 
+        show_available_courses_for_teacher();
+        /* asking which course info he/she wants to edit */
+        printf("Which course info do you want to edit?\nSelect course number: ");
+        int course_number;
+        scanf("%d", &course_number);
+        /*updating course data in student_course_data.txt
+        reducing course_number by 1 to convert in into index*/
+        update_course_data(--course_number);
     }
     return 0;
 }
