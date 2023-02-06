@@ -39,7 +39,7 @@ int main()
     {
         /* student section */
         printf("\n********** Welcome To Your Portal **********\n");
-        
+
         /* print basic information */
         struct student student_basic_info = basic_info(user.username);
         printf("Name: %sRoll: %sReg: %sBatch: %sSemester: %sDepartment: %s\n", student_basic_info.fullname, student_basic_info.roll, student_basic_info.registration, student_basic_info.batch, student_basic_info.semester, student_basic_info.department);
@@ -50,26 +50,91 @@ int main()
         printf("----------------------------------------\n");
         printf("CC\tTC\tAt\tAs\tAC\tPr\tPC\tCT\tCTA\n");
         struct course_data *all_course_data_arr = course_data_retriver(user.username);
-        for (int i = 0; 1;i++)
+        for (int i = 0; 1; i++)
         {
             /* print until last last value */
             if (all_course_data_arr[i].course_name[0] == 'E')
                 break;
-            printf("%s    %s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n",all_course_data_arr[i].course_name, all_course_data_arr[i].total_class, all_course_data_arr[i].attendence, all_course_data_arr[i].total_assignment, all_course_data_arr[i].assignment_completed, all_course_data_arr[i].total_presentation, all_course_data_arr[i].presentation_completed, all_course_data_arr[i].total_classtest, all_course_data_arr[i].classtest_completed);
+            printf("%s    %s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n", all_course_data_arr[i].course_name, all_course_data_arr[i].total_class, all_course_data_arr[i].attendence, all_course_data_arr[i].total_assignment, all_course_data_arr[i].assignment_completed, all_course_data_arr[i].total_presentation, all_course_data_arr[i].presentation_completed, all_course_data_arr[i].total_classtest, all_course_data_arr[i].classtest_completed);
         }
     }
     else
     {
         /* teacher section */
-        /* showing all the courses */ 
+        /* showing all the courses */
         show_available_courses_for_teacher();
-        /* asking which course info he/she wants to edit */
-        printf("Which course info do you want to edit?\nSelect course number: ");
-        int course_number;
-        scanf("%d", &course_number);
-        /*updating course data in student_course_data.txt
-        reducing course_number by 1 to convert in into index*/
-        update_course_data(--course_number);
+
+        // /* asking which course info he/she wants to edit */
+        // printf("Which course info do you want to edit?\nSelect course number: ");
+        // int course_number;
+        // scanf("%d", &course_number);
+
+        // /*updating course data in student_course_data.txt
+        // reducing course_number by 1 to convert in into index*/
+        // update_course_data(--course_number);
+        while (1)
+        {
+
+            int operation = 0;
+            while (1)
+            {
+                printf("Choose an option: \n1.Show student data.\n2. Publish short notice.\n3. Show all noticesn\n4. Exit\n(Press 1 / 2 / 3 / 4) : ");
+                scanf("%d", &operation);
+                if (operation < 1 || operation > 4)
+                    printf("Wrong input.\n");
+                else
+                    break;
+            }
+            if (operation == 1)
+            {
+                /* show student data */
+                char roll[10];
+                printf("Enter Roll: ");
+                scanf(" %s", &roll);
+                // printf("ROll = %s\n",roll);
+                char *username_of_the_roll = find_user_name_of_roll(roll);
+                // printf("username= %s", username_of_the_roll);
+                //
+                /* printing educational datas */
+                printf("----------------------------------------\n");
+                printf("CC = Course Code\t\tTC = Total Classes\t\tAt = Attendence\nAs = Assignment\t\t\tAC = Assignment Completed\tPr = Presentation\nPC = Presentation Completed\tCT = Class Tests\t\tCTA = Class Test Attended\n");
+                printf("----------------------------------------\n");
+                printf("CC\tTC\tAt\tAs\tAC\tPr\tPC\tCT\tCTA\n");
+                struct course_data *all_course_data_arr = course_data_retriver(username_of_the_roll);
+                for (int i = 0; 1; i++)
+                {
+                    /* print until last last value */
+                    if (all_course_data_arr[i].course_name[0] == 'E')
+                        break;
+                    printf("%s    %s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n", all_course_data_arr[i].course_name, all_course_data_arr[i].total_class, all_course_data_arr[i].attendence, all_course_data_arr[i].total_assignment, all_course_data_arr[i].assignment_completed, all_course_data_arr[i].total_presentation, all_course_data_arr[i].presentation_completed, all_course_data_arr[i].total_classtest, all_course_data_arr[i].classtest_completed);
+                }
+            }
+            else if (operation == 2)
+            {
+                /* publish short notice */
+                char notice[100];
+                while (1)
+                {
+                    printf("Notice: ");
+                    scanf("%[^\n]%*c", notice);
+                    printf("Your notice:  %s\nPress 1 for procced / 0 for retake: ");
+                    int x = 0;
+                    scanf("%d", &x);
+                    if (x == 1)
+                        break;
+                }
+                publish_notice(notice);
+            }
+            else if (operation == 3)
+            {
+                show_notice();
+            }
+            else
+            {
+                printf("Closing Program\n-------------------\n");
+                break;
+            }
+        }
     }
     return 0;
 }

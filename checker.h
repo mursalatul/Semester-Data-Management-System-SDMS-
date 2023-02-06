@@ -17,6 +17,7 @@ struct user
 int user_present(struct user user);
 int is_catagory_in_file(char *username, char *password, char catagory);
 int custom_strcmp(char *s1, char *s2);
+int cmp_with_course_name(char *str, char *target);
 
 /* check if the login data present in the dataset or not, return 1 for all ok,
 return 10 if wrong password, 0 if wrong username */
@@ -85,12 +86,41 @@ int custom_strcmp(char *s1, char *s2)
     and this type of string ends with \n which also added
     to the size. x[4] = "ab", then actually it is {'a', 'b', '\n'}
     so the lenth is 3, but in general lenth is 2.
-    but s2 is come as reference. so it is not end with \n. so 
+    but s2 is come as reference. so it is not end with \n. so
     it gives actual size */
     if (strlen(s1) - 1 != strlen(s2))
         return 1;
     for (int i = 0; i < (int)strlen(s2); i++)
         if (s1[i] != s2[i])
+            return 1;
+    return 0;
+}
+
+/* extract course name from the str and compare with str */
+int cmp_with_course_name(char *str, char *target)
+{
+    // int i = 0;
+    // char course_name[20];
+    // while (1)
+    // {
+    //     char x = str[i];
+    //     if (x == ' ')
+    //     {
+    //         course_name[i] = '\0';
+    //         break;
+    //     }
+    //     else
+    //     {
+    //         course_name[i++] = x;
+    //     }
+    // }
+    // if (strlen(course_name) != strlen(target))
+    //     return 1;
+    // for (int i1 = 0; i1 < (int)strlen(target); i1++)
+    //     if(course_name[i] != target[i])
+    //         return 1;
+    for (int i = 0; i < (int)strlen(target); i++)
+        if (str[i] != target[i])
             return 1;
     return 0;
 }
