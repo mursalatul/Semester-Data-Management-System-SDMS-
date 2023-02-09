@@ -39,12 +39,15 @@ int main()
     {
         /* student section */
         printf("\n********** Welcome To Your Portal **********\n");
+        /* print basic information */
+        struct student student_basic_info = basic_info(user.username);
+        printf("Name       : %sRoll       : %sReg        : %sBatch      : %sSemester   : %sDepartment : %s\n", student_basic_info.fullname, student_basic_info.roll, student_basic_info.registration, student_basic_info.batch, student_basic_info.semester, student_basic_info.department);
         while (1)
         {
             int operation = 0;
             while (1)
             {
-                printf("\nChoose an option: \n1. Show student data.\n2. Show all notices\n3. Exit\n(Press 1 / 2 / 3) : ");
+                printf("\nChoose an option: \n1. Show Course data.\n2. Show all notices\n3. Exit\n(Press 1 / 2 / 3) : ");
                 scanf("%d", &operation);
                 if (operation < 1 || operation > 3)
                     printf("Wrong input.\n");
@@ -53,14 +56,10 @@ int main()
             }
             if (operation == 1)
             {
-                /* print basic information */
-                struct student student_basic_info = basic_info(user.username);
-                printf("Name: %sRoll: %sReg: %sBatch: %sSemester: %sDepartment: %s\n", student_basic_info.fullname, student_basic_info.roll, student_basic_info.registration, student_basic_info.batch, student_basic_info.semester, student_basic_info.department);
-
                 /* printing educational datas */
-                printf("----------------------------------------\n");
+                printf("All Data About Course\n-----------------------------------------------------------------------\n");
                 printf("CC = Course Code\t\tTC = Total Classes\t\tAt = Attendence\nAs = Assignment\t\t\tAC = Assignment Completed\tPr = Presentation\nPC = Presentation Completed\tCT = Class Tests\t\tCTA = Class Test Attended\n");
-                printf("----------------------------------------\n");
+                printf("-----------------------------------------------------------------------\n");
                 printf("CC\tTC\tAt\tAs\tAC\tPr\tPC\tCT\tCTA\n");
                 struct course_data *all_course_data_arr = course_data_retriver(user.username);
                 for (int i = 0; 1; i++)
@@ -71,7 +70,7 @@ int main()
                     printf("%s    %s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n", all_course_data_arr[i].course_name, all_course_data_arr[i].total_class, all_course_data_arr[i].attendence, all_course_data_arr[i].total_assignment, all_course_data_arr[i].assignment_completed, all_course_data_arr[i].total_presentation, all_course_data_arr[i].presentation_completed, all_course_data_arr[i].total_classtest, all_course_data_arr[i].classtest_completed);
                 }
             }
-            else if (operation == 3)
+            else if (operation == 2)
             {
                 show_notice();
             }
@@ -106,19 +105,23 @@ int main()
                 scanf(" %s", &roll);
                 /* finding username of the spacific roll so the corse data of the username can be searched */
                 char *username_of_the_roll = find_user_name_of_roll(roll);
-                
-                /* printing educational datas */
-                printf("----------------------------------------\n");
-                printf("CC = Course Code\t\tTC = Total Classes\t\tAt = Attendence\nAs = Assignment\t\t\tAC = Assignment Completed\tPr = Presentation\nPC = Presentation Completed\tCT = Class Tests\t\tCTA = Class Test Attended\n");
-                printf("----------------------------------------\n");
-                printf("CC\tTC\tAt\tAs\tAC\tPr\tPC\tCT\tCTA\n");
-                struct course_data *all_course_data_arr = course_data_retriver(username_of_the_roll);
-                for (int i = 0; 1; i++)
+                if (strcmp(username_of_the_roll, "NOT FOUND") == 0)
+                    printf("Roll does not exist.\n");
+                else
                 {
-                    /* print until last last value */
-                    if (all_course_data_arr[i].course_name[0] == 'E')
-                        break;
-                    printf("%s    %s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n", all_course_data_arr[i].course_name, all_course_data_arr[i].total_class, all_course_data_arr[i].attendence, all_course_data_arr[i].total_assignment, all_course_data_arr[i].assignment_completed, all_course_data_arr[i].total_presentation, all_course_data_arr[i].presentation_completed, all_course_data_arr[i].total_classtest, all_course_data_arr[i].classtest_completed);
+                    /* printing educational datas */
+                    printf("----------------------------------------\n");
+                    printf("CC = Course Code\t\tTC = Total Classes\t\tAt = Attendence\nAs = Assignment\t\t\tAC = Assignment Completed\tPr = Presentation\nPC = Presentation Completed\tCT = Class Tests\t\tCTA = Class Test Attended\n");
+                    printf("----------------------------------------\n");
+                    printf("CC\tTC\tAt\tAs\tAC\tPr\tPC\tCT\tCTA\n");
+                    struct course_data *all_course_data_arr = course_data_retriver(username_of_the_roll);
+                    for (int i = 0; 1; i++)
+                    {
+                        /* print until last last value */
+                        if (all_course_data_arr[i].course_name[0] == 'E')
+                            break;
+                        printf("%s    %s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n", all_course_data_arr[i].course_name, all_course_data_arr[i].total_class, all_course_data_arr[i].attendence, all_course_data_arr[i].total_assignment, all_course_data_arr[i].assignment_completed, all_course_data_arr[i].total_presentation, all_course_data_arr[i].presentation_completed, all_course_data_arr[i].total_classtest, all_course_data_arr[i].classtest_completed);
+                    }
                 }
             }
             else if (operation == 2)
@@ -148,7 +151,7 @@ int main()
         }
     }
     printf("\n Closing Program\n----------------\n");
-                
+
     return 0;
 }
 
@@ -159,7 +162,7 @@ struct user login()
     /* check if the username valid or not*/
     while (1)
     {
-        printf("Login\nUsername     : ");
+        printf("\t\tLogin\n-----------------------------------\nUsername     : ");
         scanf("%s", &user.username);
         if (username_format_checker(user.username) == 1)
             break;
@@ -179,7 +182,7 @@ struct user login()
     /*this while lop will continue untill user enter S or T*/
     while (1)
     {
-        printf("Login as student/Teacher\nPress 'S' for student and 'T' for teacher\n          : ");
+        printf("Login as student/\nTeacher. Press 'S'\nfor student and 'T'\nfor teacher\n             : ");
         /*bug: if we insert multiple char in same line it take each of the letter as indivitual input causeing loop*/
         scanf(" %c", &user.stu_teac);
         /* lowercasing user.stu_teac for simplicity */
@@ -249,7 +252,11 @@ int username_format_checker(char *u)
 int login_confirmation(struct user user)
 {
     char confirm[20];
-    printf("\nUsername              : %s\nStudent/Teacher status: %c\nProcced? (YES/NO): ", user.username, user.stu_teac);
+    printf("\n-----------------------------------\nUsername         : %s\n", user.username);
+    if (user.stu_teac == 's')
+        printf("login as         : Student\nProceed?(YES/NO) : ");
+    else
+        printf("Login as         : Teacher\nProceed?(YES/NO) : ");
     scanf("%s", &confirm);
     if (!strcmp(confirm, "YES") || !strcmp(confirm, "yes") || !strcmp(confirm, "1") || !strcmp(confirm, "Yes") || !strcmp(confirm, "y") || !strcmp(confirm, "Y"))
         return 1;

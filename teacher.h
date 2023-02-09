@@ -94,6 +94,7 @@ void show_notice()
             push(str);
         }
     }
+    printf("\nAll Notices:\n");
     int total_print = TOP + 1;
     for (int i = 0; i < total_print; i++)
     {
@@ -114,12 +115,18 @@ char *find_user_name_of_roll(char *roll)
         {
             if (custom_strcmp(str, roll) == 0)
             {
+                /* username at the 1 line up from the roll line */
                 target_line = count_line_number - 2;
                 break;
             }
             count_line_number++;
         }
-        return find_user_name_at_line_x(target_line);
+        if (target_line)
+        {
+            /*if target_line found search for the username*/
+            fclose(file);
+            return find_user_name_at_line_x(target_line);
+        }
     }
     fclose(file);
     return "NOT FOUND";
@@ -153,6 +160,8 @@ char *find_user_name_at_line_x(int target_line)
                 }
                 return final_str;
             }
+            else
+                ++count_line_number1;
         }
     }
 }
