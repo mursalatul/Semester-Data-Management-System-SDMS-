@@ -25,9 +25,9 @@ int main()
             /* check if login data correct or not */
             int user_status = user_present(user);
             if (user_status == 0)
-                printf("\033[31mWrong username!\n\033[30m\n\n");
+                printf("Wrong username!\n\n\n");
             else if (user_status == 10)
-                printf("\033[31mWrong password!\n\033[30m\n\n");
+                printf("Wrong password!\n\n\n");
             else
                 /* user_status = 1, data found */
                 break;
@@ -167,7 +167,7 @@ struct user login()
         if (username_format_checker(user.username) == 1)
             break;
         else
-            printf("\033[31mUsername is not in valid format.\nOnly lowercase english letter, underscore and numbers are allowed.\n\033[30m\n\n");
+            printf("Username is not in valid format.\nOnly lowercase english letter, underscore and numbers are allowed.\n\n\n");
     }
     /* this loop will continue untill user enter valid format password*/
     while (1)
@@ -177,12 +177,12 @@ struct user login()
         if (password_format_checker(user.password) == 1)
             break;
         else
-            printf("\033[31mPassword is not in valid format.\nPassword size should be in 4 - 10.\nAnd contains 1 number, 1 uppercase and lowercase letter and 1 special character.\n\033[30m\n\n");
+            printf("Password is not in valid format.\nPassword size should be in 4 - 10.\nAnd contains 1 number, 1 uppercase and lowercase letter and 1 special character.\n\n\n");
     }
     /*this while lop will continue untill user enter S or T*/
     while (1)
     {
-        printf("Login as student/\nTeacher. Press 'S'\nfor student and 'T'\nfor teacher\n             : ");
+        printf("Login as student/Teacher.\nPress ('S' for student) and ('T' for teacher)\n             : ");
         /*bug: if we insert multiple char in same line it take each of the letter as indivitual input causeing loop*/
         scanf(" %c", &user.stu_teac);
         /* lowercasing user.stu_teac for simplicity */
@@ -191,7 +191,7 @@ struct user login()
         if (user.stu_teac == 's' || user.stu_teac == 't')
             break;
         else
-            printf("\033[31mValid input is 'S' or 'T', Try again\033[30m\n\n");
+            printf("Valid input is 'S' or 'T', Try again\n\n");
     }
     return user;
 }

@@ -102,26 +102,6 @@ int custom_strcmp(char *s1, char *s2)
 /* extract course name from the str and compare with str */
 int cmp_with_course_name(char *str, char *target)
 {
-    // int i = 0;
-    // char course_name[20];
-    // while (1)
-    // {
-    //     char x = str[i];
-    //     if (x == ' ')
-    //     {
-    //         course_name[i] = '\0';
-    //         break;
-    //     }
-    //     else
-    //     {
-    //         course_name[i++] = x;
-    //     }
-    // }
-    // if (strlen(course_name) != strlen(target))
-    //     return 1;
-    // for (int i1 = 0; i1 < (int)strlen(target); i1++)
-    //     if(course_name[i] != target[i])
-    //         return 1;
     for (int i = 0; i < (int)strlen(target); i++)
         if (str[i] != target[i])
             return 1;
