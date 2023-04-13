@@ -210,7 +210,7 @@ int password_format_checker(char *p)
     /* password lenth will be 4 to 10*/
     for (int i = 0; i < password_len && (password_len >= 4 && password_len <= 10); i++)
     {
-        if (p[i] >= '1' && p[i] <= '9')
+        if (p[i] >= '0' && p[i] <= '9')
             num = 1;
         else if (p[i] >= 'A' && p[i] <= 'Z')
             upperl = 1;
@@ -218,13 +218,13 @@ int password_format_checker(char *p)
             lowerl = 1;
         else if ((p[i] >= 33 && p[i] <= 47) || (p[i] >= 58 && p[i] <= 64) || (p[i] >= 91 && p[i] <= 96) || (p[i] >= 123 && p[i] <= 126))
             specl = 1;
+        // if already num, upperl, lowerl and specl found then dont need to check further
+        if (num == 1 && upperl == 1 && lowerl == 1 && specl == 1)
+            /* return 1 means return true*/
+            return 1;
     }
-    if (num == 1 && upperl == 1 && lowerl == 1 && specl == 1)
-        /* return 1 means return true*/
-        return 1;
-    else
-        /* return 0 means return false*/
-        return 0;
+    /* return 0 means return false*/
+    return 0;
 }
 
 /* check if the username in valid format or not*/
